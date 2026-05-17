@@ -1,0 +1,213 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import ScrollReveal from '../motion/ScrollReveal.astro';
+import { siteConfig } from '../../config/site';
+import { MessageCircle } from '@lucide/astro';
+---
+
+<section id="contact" class="section relative overflow-hidden">
+  <!-- Gradient mesh background -->
+  <div class="absolute inset-0 z-0" aria-hidden="true">
+    <div
+      style="background: radial-gradient(ellipse at 70% 50%, rgba(63,35,112,0.15) 0%, transparent 60%);"
+      class="absolute inset-0"
+    ></div>
+    <div
+      style="background: url('/noise.svg'); opacity: 0.015; pointer-events: none;"
+      class="absolute inset-0"
+    ></div>
+  </div>
+
+  <Container class="relative z-10" narrow>
+    <ScrollReveal>
+      <SectionHeading
+        title="Empieza tu viaje musical"
+        subtitle="Contáctanos y da el primer paso. Estamos aquí para guiarte."
+        align="center"
+      />
+    </ScrollReveal>
+
+    <ScrollReveal delay={100}>
+      <form
+        id="contact-form"
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+        class="mt-[var(--space-8)] max-w-[600px] mx-auto space-y-[var(--space-5)]"
+      >
+        <!-- Honeypot -->
+        <div class="hidden" aria-hidden="true">
+          <label for="website">No llenar este campo</label>
+          <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-4)]">
+          <div>
+            <label for="name" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
+              Nombre
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                     bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
+                     text-[var(--color-text-primary)] text-sm
+                     placeholder:text-[var(--color-text-subtle)]
+                     focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
+                     transition-all duration-[var(--motion-fast)]"
+              placeholder="Tu nombre"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                     bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
+                     text-[var(--color-text-primary)] text-sm
+                     placeholder:text-[var(--color-text-subtle)]
+                     focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
+                     transition-all duration-[var(--motion-fast)]"
+              placeholder="tu@email.com"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-4)]">
+          <div>
+            <label for="phone" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
+              Teléfono
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                     bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
+                     text-[var(--color-text-primary)] text-sm
+                     placeholder:text-[var(--color-text-subtle)]
+                     focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
+                     transition-all duration-[var(--motion-fast)]"
+              placeholder="+506 8888-8888"
+            />
+          </div>
+          <div>
+            <label for="instrument" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
+              Instrumento de interés
+            </label>
+            <select
+              id="instrument"
+              name="instrument"
+              class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                     bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
+                     text-[var(--color-text-primary)] text-sm
+                     focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
+                     transition-all duration-[var(--motion-fast)]
+                     appearance-none cursor-pointer"
+            >
+              <option value="" class="bg-[var(--color-surface-card)]">Seleccionar...</option>
+              <option value="piano" class="bg-[var(--color-surface-card)]">Piano</option>
+              <option value="guitarra" class="bg-[var(--color-surface-card)]">Guitarra</option>
+              <option value="canto" class="bg-[var(--color-surface-card)]">Canto</option>
+              <option value="bateria" class="bg-[var(--color-surface-card)]">Batería</option>
+              <option value="violin" class="bg-[var(--color-surface-card)]">Violín</option>
+              <option value="produccion" class="bg-[var(--color-surface-card)]">Producción Musical</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
+            Mensaje
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                   bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
+                   text-[var(--color-text-primary)] text-sm
+                   placeholder:text-[var(--color-text-subtle)]
+                   focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
+                   transition-all duration-[var(--motion-fast)]
+                   resize-vertical"
+            placeholder="Cuéntanos sobre tu interés musical..."
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <div class="flex flex-col sm:flex-row gap-[var(--space-4)] items-center">
+          <Button variant="primary" size="lg" type="submit" id="submit-btn" class="w-full sm:w-auto">
+            Enviar Mensaje
+          </Button>
+
+          <a
+            href={`https://wa.me/${siteConfig.contact.whatsapp}?text=Hola, me interesa información sobre Joiner Music`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-[var(--space-2)] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-whatsapp)] transition-colors duration-[var(--motion-fast)]"
+          >
+            <MessageCircle size={16} />
+            O escríbenos por WhatsApp
+          </a>
+        </div>
+
+        <!-- Status messages -->
+        <div id="form-status" class="text-sm text-center hidden"></div>
+      </form>
+    </ScrollReveal>
+  </Container>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn');
+  const statusEl = document.getElementById('form-status');
+
+  if (form && submitBtn && statusEl) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Check honeypot
+      const honeypot = form.querySelector('[name="_gotcha"]') as HTMLInputElement;
+      if (honeypot && honeypot.value) return;
+
+      // Loading state
+      submitBtn.setAttribute('disabled', 'true');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          statusEl.textContent = '¡Mensaje enviado! Te contactaremos pronto.';
+          statusEl.className = 'text-sm text-center text-[var(--color-success)]';
+          statusEl.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error('Error');
+        }
+      } catch {
+        statusEl.textContent = 'Hubo un error. Intenta de nuevo o escríbenos por WhatsApp.';
+        statusEl.className = 'text-sm text-center text-[var(--color-error)]';
+        statusEl.classList.remove('hidden');
+      } finally {
+        submitBtn.removeAttribute('disabled');
+        submitBtn.textContent = originalText;
+      }
+    });
+  }
+</script>

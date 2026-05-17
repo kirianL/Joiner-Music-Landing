@@ -1,0 +1,10 @@
+name: Batería
+slug: bateria
+description: Aprende ritmo, coordinación y grooves desde cero. Para todos los niveles y estilos musicales.
+icon: Drum
+features:
+  - Coordinación rítmica
+  - Lectura de patrones
+  - Estilos diversos
+  - Técnica de baquetas
+order: 4

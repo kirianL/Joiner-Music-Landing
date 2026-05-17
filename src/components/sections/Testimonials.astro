@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ScrollReveal from '../motion/ScrollReveal.astro';
+import { Quote } from '@lucide/astro';
+
+const testimonials = await getCollection('testimonials');
+---
+
+<section id="testimonials" class="section relative">
+  <Container class="relative z-10" narrow>
+    <ScrollReveal>
+      <SectionHeading
+        title="Voces que inspiran"
+        subtitle="Lo que nuestros estudiantes dicen sobre su experiencia."
+        align="center"
+      />
+    </ScrollReveal>
+
+    <!-- Bordered quotes — NOT cards, NOT carousel -->
+    <div class="mt-[var(--space-9)] space-y-[var(--space-7)]">
+      {testimonials.map((testimonial, i) => (
+        <ScrollReveal delay={i * 80}>
+          <blockquote class="relative py-[var(--space-6)] pl-[var(--space-7)] border-l-2 border-[var(--color-accent)]">
+            <!-- Quote icon -->
+            <div class="absolute -left-[14px] -top-[2px] bg-[var(--color-surface-base)] p-[var(--space-1)]" aria-hidden="true">
+              <Quote size={20} class="text-[var(--color-accent)]" />
+            </div>
+
+            <p class="text-[var(--font-size-lg)] text-[var(--color-text-secondary)] leading-relaxed italic font-light">
+              "{testimonial.data.quote}"
+            </p>
+
+            <footer class="mt-[var(--space-4)] flex items-center gap-[var(--space-3)]">
+              <!-- Avatar placeholder -->
+              <div class="w-10 h-10 rounded-full bg-[var(--color-surface-card)] border border-[var(--color-border-subtle)] flex items-center justify-center text-xs font-semibold text-[var(--color-text-muted)]">
+                {testimonial.data.name.charAt(0)}
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                  {testimonial.data.name}
+                </p>
+                <p class="text-xs text-[var(--color-text-muted)]">
+                  Estudiante de {testimonial.data.instrument}
+                </p>
+              </div>
+            </footer>
+          </blockquote>
+        </ScrollReveal>
+      ))}
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  target: number;
+  suffix?: string;
+  class?: string;
+}
+
+const { target, suffix = '', class: className = '' } = Astro.props;
+---
+
+<span
+  class:list={['count-up', className]}
+  data-target={target}
+  data-suffix={suffix}
+  aria-label={`${target}${suffix}`}
+>
+  0{suffix}
+</span>

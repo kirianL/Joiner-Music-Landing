@@ -1,0 +1,178 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./animations.css";
+
+/* ═══════════════════════════════════════════
+   Joiner Music — Design System v1
+   Editorial-driven, performance-first
+   ═══════════════════════════════════════════ */
+
+@theme {
+  /* ─── Brand Palette ─── */
+  --color-primary: #3F2370;
+  --color-primary-hover: #53318D;
+  --color-accent: #C9A05C;
+  --color-accent-hover: #D8B170;
+  --color-secondary: #191E54;
+  --color-background: #191818;
+  --color-foreground: #F8F8FA;
+
+  /* ─── Surface System ─── */
+  --color-surface-base: #191818;
+  --color-surface-elevated: #222224;
+  --color-surface-card: #2A2A2E;
+  --color-surface-light: #F8F8FA;
+
+  /* ─── Text Colors ─── */
+  --color-text-primary: #F8F8FA;
+  --color-text-secondary: #D6D6DB;
+  --color-text-muted: #9B9BA1;
+  --color-text-dark: #191818;
+  --color-text-accent: #C9A05C;
+
+  /* ─── Border Colors ─── */
+  --color-border-subtle: rgba(248, 248, 250, 0.08);
+  --color-border-default: rgba(248, 248, 250, 0.14);
+  --color-border-strong: rgba(248, 248, 250, 0.24);
+
+  /* ─── Feedback ─── */
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-whatsapp: #25D366;
+
+  /* ─── Typography ─── */
+  --font-heading: 'Sora', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* ─── Font Sizes ─── */
+  --font-size-xs: 0.875rem;
+  --font-size-sm: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-2xl: 3rem;
+  --font-size-3xl: 4.5rem;
+
+  /* ─── Spacing Scale ─── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 140px;
+
+  /* ─── Radius ─── */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 999px;
+
+  /* ─── Shadows ─── */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.12);
+  --shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.24);
+  --shadow-focus: 0 0 0 4px rgba(201, 160, 92, 0.22);
+
+  /* ─── Motion ─── */
+  --motion-fast: 180ms;
+  --motion-standard: 280ms;
+  --motion-slow: 500ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Base Reset & Typography ─── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-surface-light);
+  color: var(--color-text-dark);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+h1 { line-height: 1.05; }
+h2 { line-height: 1.15; }
+h3 { line-height: 1.25; }
+
+p, li, blockquote {
+  max-width: 65ch;
+  line-height: 1.6;
+}
+
+/* ─── Container Strategy ─── */
+.container {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 2vw, 1.5rem);
+}
+
+.container--narrow {
+  max-width: 900px;
+}
+
+.container--hero {
+  max-width: 700px;
+}
+
+/* ─── Section Spacing ─── */
+.section {
+  padding-block: clamp(80px, 12vw, 160px);
+}
+
+/* ─── Texture Layers ─── */
+.texture-noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/noise.svg');
+  opacity: 0.015;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.texture-radial {
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(63, 35, 112, 0.12) 0%,
+    transparent 70%
+  );
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: rgba(201, 160, 92, 0.3);
+  color: var(--color-text-primary);
+}
+
+/* ─── Focus System ─── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

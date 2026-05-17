@@ -1,0 +1,117 @@
+---
+import { navLinks, ctaLink } from '../../config/navigation';
+import { siteConfig } from '../../config/site';
+import Button from '../ui/Button.astro';
+---
+
+<!-- Sentinel for scroll detection -->
+<div id="nav-sentinel" class="absolute top-0 h-[1px] w-full" aria-hidden="true"></div>
+
+<nav
+  id="navbar"
+  class="sticky top-0 left-0 right-0 z-50 bg-[var(--color-surface-light)] border-b border-transparent transition-all duration-[var(--motion-standard)] ease-[var(--ease-standard)]"
+  role="navigation"
+  aria-label="Navegación principal"
+>
+  <div class="w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-none mx-auto flex items-center justify-between h-[80px]">
+    <!-- Logo -->
+    <a href="#hero" class="flex items-center">
+      <img src="/Logo/Logo.png" alt="Joiner Music" class="h-14 lg:h-16 w-auto object-contain" />
+    </a>
+
+    <!-- Desktop Navigation (Centered) -->
+    <div class="hidden lg:flex items-center justify-center flex-1 mx-8 gap-[var(--space-6)] text-[15px] font-medium">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          data-nav-link
+          class="text-[var(--color-text-dark)] hover:text-[var(--color-accent)] transition-colors duration-[var(--motion-fast)] flex items-center gap-1"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Right Side (Button Only) -->
+    <div class="hidden lg:flex items-center gap-[var(--space-5)]">
+      <!-- Admission Button -->
+      <a href="#contact" class="inline-flex items-center justify-center font-[var(--font-heading)] font-semibold rounded-full text-sm px-6 py-2.5 bg-[var(--color-accent)] text-[var(--color-primary)] hover:brightness-105 transition-all">
+        Inscríbete <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button
+      id="menu-toggle"
+      class="lg:hidden flex flex-col items-end justify-center w-10 h-10 gap-1.5 z-50 cursor-pointer group"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="block w-6 h-[2px] bg-[var(--color-text-dark)] transition-all duration-[var(--motion-standard)] origin-right"></span>
+      <span class="block w-4 h-[2px] bg-[var(--color-text-dark)] transition-all duration-[var(--motion-standard)] origin-right group-hover:w-6"></span>
+    </button>
+  </div>
+
+  <!-- Minimalist Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden fixed inset-0 z-40 bg-[var(--color-surface-light)] flex flex-col justify-center px-8 sm:px-12
+           opacity-0 pointer-events-none transition-all duration-[var(--motion-slow)] ease-[var(--ease-standard)]"
+    aria-hidden="true"
+  >
+    <div class="flex flex-col gap-6 translate-y-8 transition-transform duration-[var(--motion-slow)] delay-100" id="mobile-menu-content">
+      <span class="text-xs font-bold tracking-widest text-[var(--color-text-muted)] uppercase mb-4">Navegación</span>
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-4xl sm:text-5xl font-[var(--font-heading)] font-bold text-[var(--color-text-dark)] hover:text-[var(--color-primary)] transition-colors inline-block w-fit"
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="mt-8">
+        <a href="#contact" class="inline-flex items-center justify-center font-[var(--font-heading)] font-bold rounded-full text-lg px-8 py-4 bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] transition-all w-full sm:w-auto">
+          Inscríbete Ahora
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Navbar scrolled state */
+  #navbar.is-scrolled {
+    background-color: rgba(248, 248, 250, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  /* Active nav link */
+  [data-nav-link].is-active {
+    color: var(--color-text-dark);
+  }
+  [data-nav-link].is-active span {
+    width: 100%;
+  }
+
+  /* Mobile menu open state */
+  #mobile-menu.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  #mobile-menu.is-open #mobile-menu-content {
+    transform: translateY(0);
+  }
+
+  /* Modern 2-line Hamburger animation */
+  #menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(4px) rotate(45deg);
+  }
+  #menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    transform: translateY(-4px) rotate(-45deg);
+    width: 24px; /* match w-6 */
+  }
+</style>

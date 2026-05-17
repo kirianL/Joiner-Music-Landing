@@ -1,0 +1,138 @@
+---
+import { siteConfig } from '../../config/site';
+import { navLinks } from '../../config/navigation';
+import Container from '../ui/Container.astro';
+import { Phone, Mail, MapPin } from '@lucide/astro';
+---
+
+<footer class="bg-[var(--color-surface-elevated)] border-t border-[var(--color-border-subtle)]">
+  <Container class="py-[var(--space-9)]">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-[var(--space-8)]">
+      <!-- Brand -->
+      <div>
+        <p class="font-[var(--font-heading)] text-xl font-bold text-[var(--color-text-primary)] tracking-tight">
+          {siteConfig.name}
+        </p>
+        <p class="mt-[var(--space-3)] text-[var(--color-text-muted)] text-sm leading-relaxed" style="max-width: 30ch;">
+          {siteConfig.tagline}
+        </p>
+
+        <!-- Socials -->
+        <div class="flex gap-[var(--space-4)] mt-[var(--space-5)]">
+          <a
+            href={siteConfig.socials.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="text-[var(--color-text-muted)] hover:text-[var(--color-text-accent)] transition-colors duration-[var(--motion-fast)]"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a
+            href={siteConfig.socials.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            class="text-[var(--color-text-muted)] hover:text-[var(--color-text-accent)] transition-colors duration-[var(--motion-fast)]"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="font-[var(--font-heading)] font-semibold text-sm text-[var(--color-text-secondary)] uppercase tracking-wider mb-[var(--space-5)]">
+          Navegación
+        </p>
+        <ul class="flex flex-col gap-[var(--space-3)]">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-[var(--motion-fast)]"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="font-[var(--font-heading)] font-semibold text-sm text-[var(--color-text-secondary)] uppercase tracking-wider mb-[var(--space-5)]">
+          Contacto
+        </p>
+        <ul class="flex flex-col gap-[var(--space-4)]">
+          <li>
+            <a
+              href={`tel:${siteConfig.contact.phone}`}
+              class="flex items-center gap-[var(--space-3)] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-[var(--motion-fast)]"
+            >
+              <Phone size={16} />
+              {siteConfig.contact.phone}
+            </a>
+          </li>
+          <li>
+            <a
+              href={`mailto:${siteConfig.contact.email}`}
+              class="flex items-center gap-[var(--space-3)] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors duration-[var(--motion-fast)]"
+            >
+              <Mail size={16} />
+              {siteConfig.contact.email}
+            </a>
+          </li>
+          <li class="flex items-center gap-[var(--space-3)] text-sm text-[var(--color-text-muted)]">
+            <MapPin size={16} />
+            {siteConfig.contact.address}
+          </li>
+        </ul>
+
+        <!-- Map preview — lazy iframe on click -->
+        <div class="mt-[var(--space-5)]" id="map-container">
+          <button
+            id="map-trigger"
+            class="w-full h-[120px] rounded-[var(--radius-sm)] bg-[var(--color-surface-card)] border border-[var(--color-border-subtle)]
+                   flex items-center justify-center text-sm text-[var(--color-text-muted)]
+                   hover:border-[var(--color-border-default)] transition-colors duration-[var(--motion-fast)] cursor-pointer"
+            aria-label="Abrir mapa de ubicación"
+          >
+            <MapPin size={16} class="mr-2" />
+            Ver ubicación en mapa
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="mt-[var(--space-9)] pt-[var(--space-6)] border-t border-[var(--color-border-subtle)] text-center">
+      <p class="text-xs text-[var(--color-text-subtle)]">
+        © {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.
+      </p>
+    </div>
+  </Container>
+</footer>
+
+<script>
+  const mapTrigger = document.getElementById('map-trigger');
+  const mapContainer = document.getElementById('map-container');
+
+  if (mapTrigger && mapContainer) {
+    mapTrigger.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15720.432!2d-83.0356!3d9.9907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa61683cd5603db%3A0x5bdba93f6cf0b706!2sLim%C3%B3n%2C%20Costa%20Rica!5e0!3m2!1ses!2scr!4v1';
+      iframe.width = '100%';
+      iframe.height = '200';
+      iframe.style.border = '0';
+      iframe.style.borderRadius = 'var(--radius-sm)';
+      iframe.loading = 'lazy';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.title = 'Ubicación de Joiner Music en Limón, Costa Rica';
+
+      mapContainer.innerHTML = '';
+      mapContainer.appendChild(iframe);
+    }, { once: true });
+  }
+</script>

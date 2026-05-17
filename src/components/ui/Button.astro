@@ -1,0 +1,77 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'whatsapp';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit';
+  class?: string;
+  id?: string;
+  disabled?: boolean;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  class: className = '',
+  id,
+  disabled = false,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+
+const baseStyles = `
+  inline-flex items-center justify-center
+  font-[var(--font-heading)] font-semibold
+  rounded-[var(--radius-sm)]
+  transition-all duration-[var(--motion-standard)]
+  ease-[var(--ease-standard)]
+  cursor-pointer select-none
+  active:scale-[0.98]
+  disabled:opacity-50 disabled:pointer-events-none
+  focus-visible:outline-2 focus-visible:outline-offset-4
+  focus-visible:outline-[var(--color-accent)]
+`;
+
+const sizes: Record<string, string> = {
+  sm: 'text-sm px-4 py-2 min-h-[36px]',
+  md: 'text-sm px-6 py-3 min-h-[48px]',
+  lg: 'text-base px-8 py-4 min-h-[56px]',
+};
+
+const variants: Record<string, string> = {
+  primary: `
+    bg-[var(--color-primary)] text-[var(--color-text-primary)]
+    hover:bg-[var(--color-primary-hover)]
+    hover:shadow-[0_0_0_1px_rgba(63,35,112,0.5),0_8px_30px_rgba(63,35,112,0.2)]
+    hover:-translate-y-[1px]
+  `,
+  secondary: `
+    bg-transparent text-[var(--color-text-primary)]
+    border border-[var(--color-border-default)]
+    hover:border-[var(--color-accent)]
+    hover:text-[var(--color-text-accent)]
+    hover:-translate-y-[1px]
+  `,
+  ghost: `
+    bg-transparent text-[var(--color-text-muted)]
+    hover:text-[var(--color-text-primary)]
+    hover:bg-[var(--color-surface-elevated)]
+  `,
+  whatsapp: `
+    bg-[var(--color-whatsapp)] text-white
+    hover:brightness-110
+    hover:-translate-y-[1px]
+  `,
+};
+---
+
+<Tag
+  class:list={[baseStyles, sizes[size], variants[variant], className]}
+  {...href ? { href } : { type }}
+  {id}
+  {disabled}
+>
+  <slot />
+</Tag>

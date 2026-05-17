@@ -1,0 +1,10 @@
+name: Guitarra
+slug: guitarra
+description: Domina la guitarra acústica y eléctrica. Desde acordes básicos hasta solos avanzados.
+icon: Guitar
+features:
+  - Acústica y eléctrica
+  - Acordes y escalas
+  - Fingerpicking
+  - Composición
+order: 2

@@ -1,0 +1,102 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import { Play, Pause } from '@lucide/astro';
+---
+
+<section id="hero" class="relative pt-[var(--space-4)] pb-[var(--space-3)] lg:pb-[var(--space-4)]">
+  <Container>
+    <!-- Main Hero Card Wrapper -->
+    <div class="flex flex-col lg:flex-row w-full min-h-[600px] lg:min-h-[840px] rounded-3xl overflow-hidden shadow-2xl relative z-10">
+      
+      <!-- Left Panel: Content -->
+      <div class="w-full lg:w-1/2 bg-[var(--color-primary)] p-[var(--space-5)] sm:p-[var(--space-6)] md:p-[var(--space-9)] flex flex-col justify-center relative overflow-hidden">
+        
+        <!-- Background Illustration -->
+        <div class="absolute inset-0 pointer-events-none opacity-100">
+          <img 
+            src="/Illustrations/IllustrationHero.png" 
+            alt="" 
+            class="w-full h-full object-cover"
+            aria-hidden="true"
+          />
+        </div>
+
+        <div class="relative z-10 pt-8 lg:pt-0">
+          <!-- Inset Image Slider with Logo -->
+          <div class="w-[160px] sm:w-[200px] lg:w-[240px] aspect-[16/10] rounded-[var(--radius-md)] overflow-hidden mb-[var(--space-5)] lg:mb-[var(--space-6)] border-2 border-white/10 animate-hero shadow-lg relative group">
+            
+            <!-- Image Slider -->
+            <div class="w-full h-full bg-[var(--color-surface-elevated)] relative rounded-[var(--radius-md)] overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=600&auto=format&fit=crop" alt="Clase 1" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80 mix-blend-luminosity slider-img-1" />
+              <img src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=600&auto=format&fit=crop" alt="Clase 2" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80 mix-blend-luminosity slider-img-2" />
+              <img src="https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?q=80&w=600&auto=format&fit=crop" alt="Clase 3" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80 mix-blend-luminosity slider-img-3" />
+              <img src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?q=80&w=600&auto=format&fit=crop" alt="Clase 4" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80 mix-blend-luminosity slider-img-4" />
+            </div>
+          </div>
+
+          <!-- Description -->
+          <p class="text-[var(--font-size-sm)] sm:text-[var(--font-size-md)] text-[#ffffff] font-medium leading-relaxed mb-[var(--space-5)] lg:mb-[var(--space-6)] max-w-[45ch] animate-hero-delay-1" style="color: white !important;">
+            Somos una academia musical comprometida con darle a cada estudiante la oportunidad de aprender, crear y brillar.
+          </p>
+
+          <!-- Large Heading -->
+          <h1 class="text-[clamp(2.25rem,8vw,4.5rem)] font-extrabold font-[var(--font-heading)] tracking-tight leading-[1.05] text-[#ffffff] mb-[var(--space-6)] lg:mb-[var(--space-7)] animate-hero-delay-2" style="color: white !important;">
+            Educación con propósito. Impacto con arte.
+          </h1>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row flex-wrap gap-[var(--space-3)] sm:gap-[var(--space-4)] animate-hero-delay-2">
+            <a href="#contact" class="inline-flex items-center justify-center w-full sm:w-auto font-[var(--font-heading)] font-semibold rounded-[var(--radius-xl)] text-sm px-6 py-3.5 min-h-[48px] bg-[var(--color-text-primary)] text-[var(--color-text-dark)] hover:bg-gray-200 transition-all active:scale-95">
+              Inscríbete Ahora <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="#programs" class="inline-flex items-center justify-center w-full sm:w-auto font-[var(--font-heading)] font-semibold rounded-[var(--radius-xl)] text-sm px-6 py-3.5 min-h-[48px] bg-[var(--color-accent)] text-[var(--color-primary)] hover:bg-[#d8b170] transition-all active:scale-95">
+              Nuestros Programas
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel: Large Image & Overlays -->
+      <div class="w-full lg:w-1/2 relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:h-auto bg-[var(--color-surface-base)]">
+        
+        <!-- Background Image -->
+        <img 
+          src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=1200&auto=format&fit=crop" 
+          alt="Clase de música" 
+          class="absolute inset-0 w-full h-full object-cover animate-hero-delay-1"
+        />
+
+        <!-- Top Right Pause Button -->
+        <button class="absolute top-[var(--space-4)] right-[var(--space-4)] w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors z-20 cursor-pointer shadow-sm" aria-label="Pausar video">
+          <Pause size={20} fill="currentColor" />
+        </button>
+
+
+        
+      </div>
+
+    </div>
+  </Container>
+</section>
+
+<style>
+  /* Slider Animations */
+  .slider-img-1, .slider-img-2, .slider-img-3, .slider-img-4 {
+    opacity: 0;
+    animation: crossfade 16s infinite;
+  }
+  
+  .slider-img-1 { animation-delay: 0s; }
+  .slider-img-2 { animation-delay: 4s; }
+  .slider-img-3 { animation-delay: 8s; }
+  .slider-img-4 { animation-delay: 12s; }
+
+  @keyframes crossfade {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    25% { opacity: 1; }
+    35% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+</style>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  class?: string;
+  as?: string;
+  narrow?: boolean;
+}
+
+const { class: className = '', as: Tag = 'div', narrow = false } = Astro.props;
+const containerClass = narrow 
+  ? 'w-[calc(100%-2rem)] md:w-[calc(100%-3rem)] max-w-[900px] mx-auto' 
+  : 'w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-none mx-auto';
+---
+
+<Tag class:list={[containerClass, className]}>
+  <slot />
+</Tag>

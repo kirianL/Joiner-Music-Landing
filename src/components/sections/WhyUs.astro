@@ -1,0 +1,80 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ScrollReveal from '../motion/ScrollReveal.astro';
+import { Users, Award, Heart, Sparkles } from '@lucide/astro';
+
+const differentiators = [
+  {
+    icon: Users,
+    title: "Profesores con vocación",
+    description: "Nuestro equipo no solo tiene formación profesional — tiene pasión real por enseñar y la capacidad de conectar con cada estudiante.",
+  },
+  {
+    icon: Heart,
+    title: "Formación emocional",
+    description: "Creemos que la música es un vehículo para el crecimiento personal. Cada clase va más allá de la técnica: toca el alma.",
+  },
+  {
+    icon: Award,
+    title: "Metodología personalizada",
+    description: "No hay dos estudiantes iguales. Cada programa se adapta al ritmo, estilo y objetivos individuales de cada persona.",
+  },
+  {
+    icon: Sparkles,
+    title: "Comunidad creativa",
+    description: "Un espacio donde artistas se encuentran, colaboran y crecen juntos. Recitales, jam sessions y eventos que inspiran.",
+  },
+];
+---
+
+<section id="why-us" class="section bg-[var(--color-surface-elevated)]">
+  <Container>
+    <ScrollReveal>
+      <SectionHeading
+        title="¿Por qué Joiner Music?"
+        subtitle="Lo que nos hace diferentes no es lo que enseñamos, sino cómo lo hacemos."
+      />
+    </ScrollReveal>
+
+    <!-- Editorial rows — NOT cards -->
+    <div class="mt-[var(--space-9)] space-y-[var(--space-8)]">
+      {differentiators.map((item, i) => {
+        const Icon = item.icon;
+        const isEven = i % 2 === 0;
+        return (
+          <ScrollReveal delay={i * 80}>
+            <div class:list={[
+              'grid grid-cols-1 md:grid-cols-12 gap-[var(--space-6)] items-start',
+              'py-[var(--space-6)]',
+              i < differentiators.length - 1 ? 'border-b border-[var(--color-border-subtle)]' : '',
+            ]}>
+              <!-- Icon + number -->
+              <div class:list={[
+                'md:col-span-1 flex items-center gap-[var(--space-3)]',
+                isEven ? '' : 'md:order-last md:justify-end',
+              ]}>
+                <span class="text-[var(--color-accent)]">
+                  <Icon size={24} />
+                </span>
+              </div>
+
+              <!-- Content -->
+              <div class:list={[
+                'md:col-span-11',
+                isEven ? '' : 'md:order-first',
+              ]}>
+                <h3 class="text-lg font-semibold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                  {item.title}
+                </h3>
+                <p class="mt-[var(--space-3)] text-[var(--color-text-muted)] leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          </ScrollReveal>
+        );
+      })}
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,10 @@
+name: Piano
+slug: piano
+description: Aprende piano clásico y contemporáneo con técnicas modernas. Desde los fundamentos hasta la interpretación avanzada.
+icon: Piano
+features:
+  - Técnica clásica y moderna
+  - Lectura de partituras
+  - Improvisación
+  - Repertorio personalizado
+order: 1

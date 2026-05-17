@@ -1,0 +1,10 @@
+name: Producción Musical
+slug: produccion
+description: Crea, graba y produce tu propia música. Aprende las herramientas del estudio moderno.
+icon: Headphones
+features:
+  - DAW y software
+  - Mezcla y mastering
+  - Composición digital
+  - Sound design
+order: 6

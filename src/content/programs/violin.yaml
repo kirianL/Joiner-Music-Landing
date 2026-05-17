@@ -1,0 +1,10 @@
+name: Violín
+slug: violin
+description: Explora la belleza del violín con una formación integral. Técnica, expresión y musicalidad.
+icon: Music
+features:
+  - Postura y técnica de arco
+  - Lectura musical
+  - Música de cámara
+  - Repertorio clásico y popular
+order: 5

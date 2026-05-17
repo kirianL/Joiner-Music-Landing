@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Card from '../ui/Card.astro';
+import ScrollReveal from '../motion/ScrollReveal.astro';
+import { Piano, Guitar, Mic, Drum, Music, Headphones } from '@lucide/astro';
+
+const programs = await getCollection('programs');
+const sorted = programs.sort((a, b) => a.data.order - b.data.order);
+
+const iconMap: Record<string, any> = {
+  Piano, Guitar, Mic, Drum, Music, Headphones,
+};
+---
+
+<section id="programs" class="section relative bg-[var(--color-surface-base)]">
+  <!-- Subtle radial texture -->
+  <div class="absolute inset-0 texture-radial pointer-events-none" aria-hidden="true"></div>
+
+  <Container class="relative z-10">
+    <ScrollReveal>
+      <SectionHeading
+        title="Nuestros programas"
+        subtitle="Formación musical integral, desde lo clásico hasta lo contemporáneo."
+        align="center"
+      />
+    </ScrollReveal>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[var(--space-5)] mt-[var(--space-9)]">
+      {sorted.map((program, i) => {
+        const IconComponent = iconMap[program.data.icon] || Music;
+        return (
+          <div class="scroll-reveal-card" style={`transition-delay: ${i * 80}ms;`}>
+            <Card interactive>
+              <div class="text-[var(--color-accent)] mb-[var(--space-4)]">
+                <IconComponent size={28} />
+              </div>
+              <h3 class="text-lg font-semibold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                {program.data.name}
+              </h3>
+              <p class="mt-[var(--space-3)] text-sm text-[var(--color-text-muted)] leading-relaxed">
+                {program.data.description}
+              </p>
+              <ul class="mt-[var(--space-4)] space-y-[var(--space-2)]">
+                {program.data.features.map((feature: string) => (
+                  <li class="flex items-center gap-[var(--space-2)] text-sm text-[var(--color-text-secondary)]">
+                    <span class="w-1 h-1 rounded-full bg-[var(--color-accent)] shrink-0" aria-hidden="true"></span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </div>
+        );
+      })}
+    </div>
+  </Container>
+</section>

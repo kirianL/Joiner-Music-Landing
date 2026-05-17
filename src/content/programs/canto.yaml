@@ -1,0 +1,10 @@
+name: Canto
+slug: canto
+description: Desarrolla tu voz con técnica vocal profesional. Explora tu rango y estilo único.
+icon: Mic
+features:
+  - Técnica vocal
+  - Control de respiración
+  - Interpretación
+  - Estilos variados
+order: 3
