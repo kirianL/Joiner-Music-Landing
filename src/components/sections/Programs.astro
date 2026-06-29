@@ -34,7 +34,7 @@ const pngIconMap: Record<string, string> = {
         title="Nuestros programas"
         subtitle="Formación musical integral, desde lo clásico hasta lo contemporáneo."
         align="center"
-        theme="dark"
+        theme="light"
       />
     </ScrollReveal>
 
@@ -44,14 +44,14 @@ const pngIconMap: Record<string, string> = {
         const IconComponent = iconMap[program.data.icon] || Music;
         return (
           <div class="scroll-reveal-card" style={`transition-delay: ${i * 80}ms;`}>
-            <Card interactive class="flex flex-col h-full justify-between">
+            <Card interactive class="flex flex-col h-full justify-between group">
               <div>
-                <div class="w-14 h-14 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-[var(--space-4)] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] overflow-hidden p-2">
+                <div class="w-20 h-20 flex items-center justify-center mb-[var(--space-4)] group-hover:scale-110 transition-transform duration-300">
                   {pngSrc ? (
-                    <img src={pngSrc} alt="" class="w-full h-full object-contain filter invert opacity-90" />
+                    <img src={pngSrc} alt={`Icono ${program.data.name}`} class="w-full h-full object-contain" />
                   ) : (
-                    <span class="text-[var(--color-accent)]">
-                      <IconComponent size={22} />
+                    <span class="text-[var(--color-primary)] p-3.5 bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/10 rounded-2xl">
+                      <IconComponent size={24} />
                     </span>
                   )}
                 </div>
