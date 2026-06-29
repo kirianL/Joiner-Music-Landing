@@ -2,76 +2,60 @@
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import ScrollReveal from '../motion/ScrollReveal.astro';
-import { Users, Award, Heart, Sparkles } from '@lucide/astro';
+import Card from '../ui/Card.astro';
+import { Users, Clock, Layers, MapPin } from '@lucide/astro';
 
 const differentiators = [
   {
     icon: Users,
-    title: "Profesores con vocación",
-    description: "Nuestro equipo no solo tiene formación profesional — tiene pasión real por enseñar y la capacidad de conectar con cada estudiante.",
+    title: "Atención Personalizada",
+    description: "Cada alumno es único. Nuestra enseñanza está centrada 100% en el estudiante, adaptando la metodología a tu propio ritmo, intereses y aptitudes.",
   },
   {
-    icon: Heart,
-    title: "Formación emocional",
-    description: "Creemos que la música es un vehículo para el crecimiento personal. Cada clase va más allá de la técnica: toca el alma.",
+    icon: Clock,
+    title: "Horas Flexibles",
+    description: "Nos adaptamos a tu estilo de vida. Ofrecemos una amplia gama de horarios para que puedas balancear tu formación artística con tus estudios o trabajo.",
   },
   {
-    icon: Award,
-    title: "Metodología personalizada",
-    description: "No hay dos estudiantes iguales. Cada programa se adapta al ritmo, estilo y objetivos individuales de cada persona.",
+    icon: Layers,
+    title: "Diversidad de Programas",
+    description: "Desde clases de múltiples instrumentos musicales (piano, guitarra, batería, bajo, violín, canto, saxofón, flauta) hasta artes plásticas (pintura, dibujo) e inglés.",
   },
   {
-    icon: Sparkles,
-    title: "Comunidad creativa",
-    description: "Un espacio donde artistas se encuentran, colaboran y crecen juntos. Recitales, jam sessions y eventos que inspiran.",
+    icon: MapPin,
+    title: "Modalidad Presencial",
+    description: "Creemos en el poder del contacto directo. Nuestras clases presenciales garantizan una retroalimentación inmediata, interacción humana genuina y un ambiente óptimo de estudio.",
   },
 ];
 ---
 
-<section id="why-us" class="section bg-[var(--color-surface-elevated)]">
-  <Container>
+<section id="why-us" class="section bg-[var(--color-secondary)] relative overflow-hidden">
+  <Container class="relative z-10">
     <ScrollReveal>
       <SectionHeading
         title="¿Por qué Joiner Music?"
-        subtitle="Lo que nos hace diferentes no es lo que enseñamos, sino cómo lo hacemos."
+        subtitle="Lo que nos hace diferentes no es solo lo que enseñamos, sino cómo diseñamos la experiencia educativa."
+        theme="dark"
       />
     </ScrollReveal>
 
-    <!-- Editorial rows — NOT cards -->
-    <div class="mt-[var(--space-9)] space-y-[var(--space-8)]">
+    <!-- Modern SaaS Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-5)] mt-[var(--space-8)]">
       {differentiators.map((item, i) => {
-        const Icon = item.icon;
-        const isEven = i % 2 === 0;
+        const IconComponent = item.icon;
         return (
           <ScrollReveal delay={i * 80}>
-            <div class:list={[
-              'grid grid-cols-1 md:grid-cols-12 gap-[var(--space-6)] items-start',
-              'py-[var(--space-6)]',
-              i < differentiators.length - 1 ? 'border-b border-[var(--color-border-subtle)]' : '',
-            ]}>
-              <!-- Icon + number -->
-              <div class:list={[
-                'md:col-span-1 flex items-center gap-[var(--space-3)]',
-                isEven ? '' : 'md:order-last md:justify-end',
-              ]}>
-                <span class="text-[var(--color-accent)]">
-                  <Icon size={24} />
-                </span>
+            <Card interactive class="h-full">
+              <div class="text-[var(--color-accent)] w-12 h-12 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-[var(--space-4)] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                <IconComponent size={22} />
               </div>
-
-              <!-- Content -->
-              <div class:list={[
-                'md:col-span-11',
-                isEven ? '' : 'md:order-first',
-              ]}>
-                <h3 class="text-lg font-semibold text-[var(--color-text-primary)] font-[var(--font-heading)]">
-                  {item.title}
-                </h3>
-                <p class="mt-[var(--space-3)] text-[var(--color-text-muted)] leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </div>
+              <h3 class="text-lg font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                {item.title}
+              </h3>
+              <p class="mt-[var(--space-3)] text-sm text-[var(--color-text-secondary)] leading-relaxed opacity-90">
+                {item.description}
+              </p>
+            </Card>
           </ScrollReveal>
         );
       })}

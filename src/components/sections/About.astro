@@ -2,6 +2,7 @@
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import ScrollReveal from '../motion/ScrollReveal.astro';
+import { Target, Eye } from '@lucide/astro';
 ---
 
 <section id="about" class="section relative">
@@ -10,35 +11,71 @@ import ScrollReveal from '../motion/ScrollReveal.astro';
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-[var(--space-9)] items-center">
         <!-- Image — emotional, human -->
         <div class="order-2 lg:order-1">
-          <div class="aspect-[4/3] rounded-[var(--radius-lg)] bg-[var(--color-surface-card)] border border-[var(--color-border-subtle)] overflow-hidden relative">
-            <div class="absolute inset-0 flex items-center justify-center text-[var(--color-text-subtle)] text-sm">
-              About Image
-            </div>
+          <div class="aspect-[4/3] rounded-[var(--radius-lg)] bg-[var(--color-surface-card)] border border-[var(--color-border-subtle)] overflow-hidden relative shadow-lg group">
+            <img 
+              src="/Illustrations/about.png" 
+              alt="Estudiante en Joiner Music Academy" 
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
           </div>
         </div>
 
         <!-- Text — max 65ch -->
         <div class="order-1 lg:order-2">
           <SectionHeading
-            title="Más que una academia."
-            subtitle="Somos una comunidad de artistas, soñadores y creadores unidos por la pasión musical."
+            title="Nuestra Historia"
+            subtitle="Transformando vidas a través de la música en Limón desde 2013."
+            theme="dark"
           />
 
           <div class="mt-[var(--space-6)] space-y-[var(--space-4)]">
-            <p class="text-[var(--color-text-secondary)] leading-relaxed">
-              Desde nuestros inicios en Limón, hemos creído que la música es un
-              lenguaje universal capaz de transformar vidas. Cada estudiante
-              llega con una historia única, y nuestra misión es ayudarle a
-              encontrar su propia voz artística.
+            <p class="text-[var(--color-text-secondary)] leading-relaxed font-normal">
+              <strong>Joiner Music Academy</strong> nació con el propósito de ampliar las oportunidades de formación artística y musical en la provincia de Limón, Costa Rica.
             </p>
-            <p class="text-[var(--color-text-secondary)] leading-relaxed">
-              Nuestros profesores no solo enseñan técnica — inspiran, guían y
-              acompañan a cada alumno en su viaje musical, creando una
-              experiencia formativa genuina y emocional.
+            <p class="text-[var(--color-text-secondary)] leading-relaxed font-normal">
+              Su fundador, <strong>David Joiner</strong>, inició sus estudios musicales en Limón. Sin embargo, al buscar opciones para continuar su preparación, identificó las limitadas oportunidades de formación disponibles en el cantón central. Esta realidad lo llevó a analizar las necesidades del mercado local y a reconocer la importancia de crear un espacio que brindara acceso a una educación musical de calidad.
+            </p>
+            <p class="text-[var(--color-text-secondary)] leading-relaxed font-normal">
+              A partir de esta visión, surge la academia: un proyecto profundamente comprometido con el desarrollo artístico, la formación integral y el crecimiento cultural de la comunidad limonense.
             </p>
           </div>
         </div>
       </div>
     </ScrollReveal>
+
+    <!-- Misión & Visión Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-6)] mt-[var(--space-9)]">
+      <ScrollReveal delay={100}>
+        <div class="p-[var(--space-8)] bg-white border border-gray-200/80 rounded-[var(--radius-lg)] h-full flex flex-col justify-between shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300 group cursor-pointer">
+          <div>
+            <div class="mb-[var(--space-4)] flex items-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/10 flex items-center justify-center p-2.5 group-hover:scale-105 transition-transform duration-300">
+                <img src="/JOINER MUSIC/ICONOS PRODUCCION/PLAY-03.png" alt="" class="w-full h-full object-contain" />
+              </div>
+              <h3 class="text-2xl font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">Misión</h3>
+            </div>
+            <p class="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed font-light">
+              Brindar una educación artística integral de excelencia, accesible e innovadora, que impulse el desarrollo de las habilidades, la creatividad y el potencial de niños, jóvenes y adultos. A través de programas formativos de calidad, metodologías actualizadas y una enseñanza centrada en el estudiante, promovemos la disciplina, la confianza, la sensibilidad artística y el crecimiento personal como herramientas para transformar vidas y fortalecer nuestra comunidad.
+            </p>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      <ScrollReveal delay={200}>
+        <div class="p-[var(--space-8)] bg-white border border-gray-200/80 rounded-[var(--radius-lg)] h-full flex flex-col justify-between shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300 group cursor-pointer">
+          <div>
+            <div class="mb-[var(--space-4)] flex items-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/10 flex items-center justify-center p-2.5 group-hover:scale-105 transition-transform duration-300">
+                <img src="/JOINER MUSIC/ICONOS PRODUCCION/AUDIFONOS-03.png" alt="" class="w-full h-full object-contain" />
+              </div>
+              <h3 class="text-2xl font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">Visión</h3>
+            </div>
+            <p class="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed font-light">
+              Ser el centro de referencia para la formación artística integral del Caribe costarricense, reconocido por la excelencia de sus programas educativos, la innovación en sus procesos de enseñanza y su aporte al desarrollo cultural de la región. Aspiramos a formar generaciones de artistas, creadores y ciudadanos comprometidos, ofreciendo oportunidades de crecimiento en la música, las artes visuales, las artes escénicas y otras disciplinas artísticas que enriquezcan la vida de las personas y contribuyan al fortalecimiento de la identidad cultural de nuestra sociedad.
+            </p>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
   </Container>
 </section>

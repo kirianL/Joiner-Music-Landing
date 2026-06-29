@@ -4,18 +4,14 @@ import SectionHeading from '../ui/SectionHeading.astro';
 import Button from '../ui/Button.astro';
 import ScrollReveal from '../motion/ScrollReveal.astro';
 import { siteConfig } from '../../config/site';
-import { MessageCircle } from '@lucide/astro';
+import { MessageCircle, Database, ShieldAlert, Check } from '@lucide/astro';
 ---
 
-<section id="contact" class="section relative overflow-hidden">
-  <!-- Gradient mesh background -->
-  <div class="absolute inset-0 z-0" aria-hidden="true">
+<section id="contact" class="section relative overflow-hidden bg-[var(--color-secondary)] border-t border-white/[0.06]">
+  <!-- Gradient glow backlights -->
+  <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
     <div
-      style="background: radial-gradient(ellipse at 70% 50%, rgba(63,35,112,0.15) 0%, transparent 60%);"
-      class="absolute inset-0"
-    ></div>
-    <div
-      style="background: url('/noise.svg'); opacity: 0.015; pointer-events: none;"
+      style="background: radial-gradient(ellipse at 50% 50%, rgba(204,158,75,0.08) 0%, transparent 60%);"
       class="absolute inset-0"
     ></div>
   </div>
@@ -23,191 +19,437 @@ import { MessageCircle } from '@lucide/astro';
   <Container class="relative z-10" narrow>
     <ScrollReveal>
       <SectionHeading
-        title="Empieza tu viaje musical"
-        subtitle="Contáctanos y da el primer paso. Estamos aquí para guiarte."
+        title="Formulario de Pre-Matrícula"
+        subtitle="Completa tus datos para iniciar tu proceso de inscripción. Los datos se centralizarán en nuestra base de datos administrativa."
         align="center"
+        theme="dark"
       />
     </ScrollReveal>
 
     <ScrollReveal delay={100}>
-      <form
-        id="contact-form"
-        action="https://formspree.io/f/YOUR_FORM_ID"
-        method="POST"
-        class="mt-[var(--space-8)] max-w-[600px] mx-auto space-y-[var(--space-5)]"
-      >
-        <!-- Honeypot -->
-        <div class="hidden" aria-hidden="true">
-          <label for="website">No llenar este campo</label>
-          <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
-        </div>
+      <div class="bg-[var(--color-surface-elevated)]/40 backdrop-blur-md border border-white/[0.08] rounded-[var(--radius-lg)] p-[var(--space-6)] shadow-2xl max-w-[650px] mx-auto mt-[var(--space-8)]">
+        <form
+          id="pre-enrollment-form"
+          class="space-y-[var(--space-5)]"
+        >
+          <!-- Honeypot -->
+          <div class="hidden" aria-hidden="true">
+            <label for="website">No llenar este campo</label>
+            <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-4)]">
+          <!-- Tipo de matrícula -->
           <div>
-            <label for="name" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
-              Nombre
+            <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-[var(--space-2)]">
+              ¿Quién recibirá la clase?
+            </label>
+            <div class="grid grid-cols-2 gap-[var(--space-3)]">
+              <label class="flex items-center gap-[var(--space-2)] p-[var(--space-3)] rounded-[var(--radius-sm)] border border-white/10 bg-white/[0.02] cursor-pointer hover:border-[var(--color-accent)] transition-all">
+                <input type="radio" name="student_type" value="adult" checked class="accent-[var(--color-accent)]" />
+                <span class="text-sm text-white">Soy Adulto</span>
+              </label>
+              <label class="flex items-center gap-[var(--space-2)] p-[var(--space-3)] rounded-[var(--radius-sm)] border border-white/10 bg-white/[0.02] cursor-pointer hover:border-[var(--color-accent)] transition-all">
+                <input type="radio" name="student_type" value="minor" class="accent-[var(--color-accent)]" />
+                <span class="text-sm text-white">Menor de Edad</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Datos del Estudiante -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-[var(--space-4)]">
+            <div class="md:col-span-2">
+              <label for="student_name" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-[var(--space-2)]">
+                Nombre Completo del Estudiante
+              </label>
+              <input
+                type="text"
+                id="student_name"
+                name="student_name"
+                required
+                class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                       bg-white/[0.03] border border-white/10
+                       text-white text-sm
+                       placeholder:text-gray-500
+                       focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20
+                       transition-all"
+                placeholder="Ej: Sofía Alfaro Quirós"
+              />
+            </div>
+            <div>
+              <label for="student_age" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-[var(--space-2)]">
+                Edad
+              </label>
+              <input
+                type="number"
+                id="student_age"
+                name="student_age"
+                required
+                min="4"
+                max="99"
+                class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                       bg-white/[0.03] border border-white/10
+                       text-white text-sm
+                       placeholder:text-gray-500
+                       focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20
+                       transition-all"
+                placeholder="Edad"
+              />
+            </div>
+          </div>
+
+          <!-- Nombre del Encargado (Opcional condicional) -->
+          <div id="guardian-container" class="hidden">
+            <label for="guardian_name" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-[var(--space-2)]">
+              Nombre Completo del Padre/Madre o Tutor
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
-              required
+              id="guardian_name"
+              name="guardian_name"
               class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
-                     bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
-                     text-[var(--color-text-primary)] text-sm
-                     placeholder:text-[var(--color-text-subtle)]
-                     focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
-                     transition-all duration-[var(--motion-fast)]"
-              placeholder="Tu nombre"
+                     bg-white/[0.03] border border-white/10
+                     text-white text-sm
+                     placeholder:text-gray-500
+                     focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20
+                     transition-all"
+              placeholder="Ej: Roberto Alfaro"
             />
           </div>
-          <div>
-            <label for="email" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
-                     bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
-                     text-[var(--color-text-primary)] text-sm
-                     placeholder:text-[var(--color-text-subtle)]
-                     focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
-                     transition-all duration-[var(--motion-fast)]"
-              placeholder="tu@email.com"
-            />
-          </div>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-4)]">
-          <div>
-            <label for="phone" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
-              Teléfono
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
-                     bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
-                     text-[var(--color-text-primary)] text-sm
-                     placeholder:text-[var(--color-text-subtle)]
-                     focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
-                     transition-all duration-[var(--motion-fast)]"
-              placeholder="+506 8888-8888"
-            />
+          <!-- Contacto -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-4)]">
+            <div>
+              <label for="phone" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-[var(--space-2)]">
+                Teléfono de Contacto
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                       bg-white/[0.03] border border-white/10
+                       text-white text-sm
+                       placeholder:text-gray-500
+                       focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20
+                       transition-all"
+                placeholder="+506 8888-8888"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-[var(--space-2)]">
+                Correo Electrónico
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                       bg-white/[0.03] border border-white/10
+                       text-white text-sm
+                       placeholder:text-gray-500
+                       focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20
+                       transition-all"
+                placeholder="nombre@correo.com"
+              />
+            </div>
           </div>
-          <div>
-            <label for="instrument" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
-              Instrumento de interés
-            </label>
-            <select
-              id="instrument"
-              name="instrument"
-              class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
-                     bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
-                     text-[var(--color-text-primary)] text-sm
-                     focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
-                     transition-all duration-[var(--motion-fast)]
-                     appearance-none cursor-pointer"
+
+          <!-- Curso & Horario -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-4)]">
+            <div>
+              <label for="program" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-[var(--space-2)]">
+                Programa de Interés
+              </label>
+              <select
+                id="program"
+                name="program"
+                required
+                class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                       bg-white/[0.03] border border-white/10
+                       text-white text-sm
+                       focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20
+                       transition-all appearance-none cursor-pointer"
+              >
+                <option value="" class="bg-[#301228] text-white">Seleccionar curso...</option>
+                <option value="piano" class="bg-[#301228] text-white">Piano</option>
+                <option value="guitarra" class="bg-[#301228] text-white">Guitarra</option>
+                <option value="violin" class="bg-[#301228] text-white">Violín</option>
+                <option value="bateria" class="bg-[#301228] text-white">Batería</option>
+                <option value="bajo-electrico" class="bg-[#301228] text-white">Bajo Eléctrico</option>
+                <option value="canto" class="bg-[#301228] text-white">Canto</option>
+                <option value="saxofon" class="bg-[#301228] text-white">Saxofón</option>
+                <option value="flauta-dulce" class="bg-[#301228] text-white">Flauta Dulce</option>
+                <option value="pintura" class="bg-[#301228] text-white">Pintura</option>
+                <option value="dibujo" class="bg-[#301228] text-white">Dibujo</option>
+                <option value="ingles" class="bg-[#301228] text-white">Inglés</option>
+              </select>
+            </div>
+            <div>
+              <label for="schedule" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-[var(--space-2)]">
+                Preferencia de Horario
+              </label>
+              <select
+                id="schedule"
+                name="schedule"
+                required
+                class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
+                       bg-white/[0.03] border border-white/10
+                       text-white text-sm
+                       focus:outline-none focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/20
+                       transition-all appearance-none cursor-pointer"
+              >
+                <option value="" class="bg-[#301228] text-white">Seleccionar horario...</option>
+                <option value="morning" class="bg-[#301228] text-white">Mañana (Lunes a Viernes)</option>
+                <option value="afternoon" class="bg-[#301228] text-white">Tarde (Lunes a Viernes)</option>
+                <option value="saturday" class="bg-[#301228] text-white">Sábado (Todo el día)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="flex flex-col sm:flex-row gap-[var(--space-4)] items-center pt-[var(--space-2)]">
+            <button 
+              type="submit" 
+              id="submit-btn" 
+              class="w-full sm:w-auto font-[var(--font-heading)] font-bold rounded-full text-sm px-6 py-3.5 bg-[var(--color-accent)] text-black hover:bg-[var(--color-accent-hover)] hover:scale-[1.02] transition-all duration-300 active:scale-95 cursor-pointer"
             >
-              <option value="" class="bg-[var(--color-surface-card)]">Seleccionar...</option>
-              <option value="piano" class="bg-[var(--color-surface-card)]">Piano</option>
-              <option value="guitarra" class="bg-[var(--color-surface-card)]">Guitarra</option>
-              <option value="canto" class="bg-[var(--color-surface-card)]">Canto</option>
-              <option value="bateria" class="bg-[var(--color-surface-card)]">Batería</option>
-              <option value="violin" class="bg-[var(--color-surface-card)]">Violín</option>
-              <option value="produccion" class="bg-[var(--color-surface-card)]">Producción Musical</option>
-            </select>
+              Completar Pre-Matrícula
+            </button>
+
+            <a
+              href={`https://wa.me/${siteConfig.contact.whatsapp}?text=Hola, me interesa realizar la matrícula para una clase.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-[var(--space-2)] text-sm text-gray-400 hover:text-[var(--color-whatsapp)] transition-colors"
+            >
+              <MessageCircle size={16} />
+              O comunícate por WhatsApp
+            </a>
+          </div>
+
+          <!-- Status messages -->
+          <div id="form-status" class="text-sm text-center hidden p-3 rounded border border-green-500/20 bg-green-500/10 text-[var(--color-success)] flex items-center justify-center gap-2">
+            <Check size={16} />
+            <span id="status-text">¡Pre-Matrícula registrada con éxito!</span>
+          </div>
+        </form>
+      </div>
+    </ScrollReveal>
+
+    <!-- Administrative CRM Database Section Mockup -->
+    <ScrollReveal delay={150}>
+      <div class="mt-[var(--space-8)] max-w-[650px] mx-auto border border-white/[0.08] rounded-[var(--radius-lg)] overflow-hidden shadow-xl bg-[var(--color-surface-elevated)]/20 backdrop-blur-md">
+        <button 
+          id="crm-toggle"
+          class="w-full p-[var(--space-4)] bg-white/[0.02] hover:bg-white/[0.06] flex items-center justify-between text-left text-sm text-gray-400 transition-colors border-b border-white/[0.06]"
+        >
+          <span class="flex items-center gap-[var(--space-2)] font-semibold text-white">
+            <Database size={16} class="text-[var(--color-accent)]" />
+            Acceso Administrativo (Demo CRM / Base de Datos)
+          </span>
+          <span class="text-xs">Ver Matrículas Activas ↓</span>
+        </button>
+
+        <div id="crm-panel" class="hidden p-[var(--space-5)] text-[11px]">
+          <div class="mb-4 flex items-center gap-2 text-gray-400 leading-relaxed">
+            <ShieldAlert size={14} class="text-[var(--color-accent)] shrink-0" />
+            <span>Este panel simula el CRM interno de la administración. Visualiza las inscripciones guardadas en tiempo real.</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-white/10 text-white font-bold">
+                  <th class="py-2 px-3">Estudiante (Edad)</th>
+                  <th class="py-2 px-3">Curso</th>
+                  <th class="py-2 px-3">Contacto</th>
+                  <th class="py-2 px-3">Horario</th>
+                  <th class="py-2 px-3 text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="crm-table-body" class="divide-y divide-white/[0.04] text-gray-300">
+                <!-- Dynamic Content -->
+              </tbody>
+            </table>
+          </div>
+          
+          <div id="crm-empty-message" class="text-center py-6 text-gray-500">
+            No hay matrículas registradas. Rellena el formulario superior para enviar un registro.
           </div>
         </div>
-
-        <div>
-          <label for="message" class="block text-sm font-medium text-[var(--color-text-secondary)] mb-[var(--space-2)]">
-            Mensaje
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="4"
-            class="w-full px-[var(--space-4)] py-[var(--space-3)] rounded-[var(--radius-sm)]
-                   bg-[var(--color-surface-card)] border border-[var(--color-border-default)]
-                   text-[var(--color-text-primary)] text-sm
-                   placeholder:text-[var(--color-text-subtle)]
-                   focus:outline-none focus:border-[var(--color-accent)] focus:shadow-[var(--shadow-focus)]
-                   transition-all duration-[var(--motion-fast)]
-                   resize-vertical"
-            placeholder="Cuéntanos sobre tu interés musical..."
-          ></textarea>
-        </div>
-
-        <!-- Submit -->
-        <div class="flex flex-col sm:flex-row gap-[var(--space-4)] items-center">
-          <Button variant="primary" size="lg" type="submit" id="submit-btn" class="w-full sm:w-auto">
-            Enviar Mensaje
-          </Button>
-
-          <a
-            href={`https://wa.me/${siteConfig.contact.whatsapp}?text=Hola, me interesa información sobre Joiner Music`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-[var(--space-2)] text-sm text-[var(--color-text-muted)] hover:text-[var(--color-whatsapp)] transition-colors duration-[var(--motion-fast)]"
-          >
-            <MessageCircle size={16} />
-            O escríbenos por WhatsApp
-          </a>
-        </div>
-
-        <!-- Status messages -->
-        <div id="form-status" class="text-sm text-center hidden"></div>
-      </form>
+      </div>
     </ScrollReveal>
   </Container>
 </section>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
+  // UI Interactions
+  const form = document.getElementById('pre-enrollment-form') as HTMLFormElement;
+  const guardianContainer = document.getElementById('guardian-container');
+  const guardianInput = document.getElementById('guardian_name');
   const submitBtn = document.getElementById('submit-btn');
   const statusEl = document.getElementById('form-status');
+  const statusText = document.getElementById('status-text');
 
-  if (form && submitBtn && statusEl) {
+  // Radio listener for student type
+  const studentTypeRadios = document.querySelectorAll('input[name="student_type"]');
+  studentTypeRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      const val = (e.target as HTMLInputElement).value;
+      if (val === 'minor') {
+        guardianContainer?.classList.remove('hidden');
+        guardianInput?.setAttribute('required', 'true');
+      } else {
+        guardianContainer?.classList.add('hidden');
+        guardianInput?.removeAttribute('required');
+      }
+    });
+  });
+
+  // Local Storage Database management
+  const STORAGE_KEY = 'joiner_academy_enrollments';
+
+  function getEnrollments() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveEnrollment(enrollment: any) {
+    const list = getEnrollments();
+    list.unshift(enrollment); // Newest first
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    updateCRMTable();
+  }
+
+  function deleteEnrollment(index: number) {
+    const list = getEnrollments();
+    list.splice(index, 1);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    updateCRMTable();
+  }
+
+  // CRM Panel Toggle
+  const crmToggle = document.getElementById('crm-toggle');
+  const crmPanel = document.getElementById('crm-panel');
+  crmToggle?.addEventListener('click', () => {
+    crmPanel?.classList.toggle('hidden');
+    updateCRMTable();
+  });
+
+  // Update CRM interface
+  function updateCRMTable() {
+    const tableBody = document.getElementById('crm-table-body');
+    const emptyMsg = document.getElementById('crm-empty-message');
+    const list = getEnrollments();
+
+    if (!tableBody || !emptyMsg) return;
+
+    if (list.length === 0) {
+      tableBody.innerHTML = '';
+      emptyMsg.classList.remove('hidden');
+      return;
+    }
+
+    emptyMsg.classList.add('hidden');
+    tableBody.innerHTML = list.map((item: any, index: number) => {
+      const guardianStr = item.guardian_name ? ` (Tutor: ${item.guardian_name})` : '';
+      const scheduleMap: Record<string, string> = {
+        morning: 'Mañana',
+        afternoon: 'Tarde',
+        saturday: 'Sábado'
+      };
+      return `
+        <tr class="hover:bg-white/[0.02] transition-colors">
+          <td class="py-3 px-3">
+            <div class="font-bold text-white">${item.student_name}</div>
+            <div class="text-gray-400 text-[10px]">${item.student_age} años${guardianStr}</div>
+          </td>
+          <td class="py-3 px-3 capitalize font-semibold text-[var(--color-accent)]">${item.program.replace('-', ' ')}</td>
+          <td class="py-3 px-3">
+            <div>${item.phone}</div>
+            <div class="text-gray-400 text-[10px]">${item.email}</div>
+          </td>
+          <td class="py-3 px-3 text-gray-300">${scheduleMap[item.schedule] || item.schedule}</td>
+          <td class="py-3 px-3 text-right">
+            <button 
+              class="bg-red-500/10 hover:bg-red-500/25 border border-red-500/20 text-red-400 px-2 py-0.5 rounded transition-colors delete-enrollment-btn cursor-pointer"
+              data-index="${index}"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    // Attach deletion handlers
+    const deleteButtons = tableBody.querySelectorAll('.delete-enrollment-btn');
+    deleteButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const index = parseInt((e.target as HTMLButtonElement).getAttribute('data-index') || '0', 10);
+        deleteEnrollment(index);
+      });
+    });
+  }
+
+  // Handle Form Submission
+  if (form && submitBtn && statusEl && statusText) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Check honeypot
+      // Honeypot check
       const honeypot = form.querySelector('[name="_gotcha"]') as HTMLInputElement;
       if (honeypot && honeypot.value) return;
 
-      // Loading state
       submitBtn.setAttribute('disabled', 'true');
       const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Enviando...';
+      submitBtn.textContent = 'Procesando Matrícula...';
 
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' },
-        });
+      // Simulating a minor API call delay for realism
+      await new Promise(resolve => setTimeout(resolve, 800));
 
-        if (response.ok) {
-          statusEl.textContent = '¡Mensaje enviado! Te contactaremos pronto.';
-          statusEl.className = 'text-sm text-center text-[var(--color-success)]';
-          statusEl.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error('Error');
-        }
-      } catch {
-        statusEl.textContent = 'Hubo un error. Intenta de nuevo o escríbenos por WhatsApp.';
-        statusEl.className = 'text-sm text-center text-[var(--color-error)]';
-        statusEl.classList.remove('hidden');
-      } finally {
-        submitBtn.removeAttribute('disabled');
-        submitBtn.textContent = originalText;
-      }
+      const formData = new FormData(form);
+      const enrollment = {
+        student_type: formData.get('student_type'),
+        student_name: formData.get('student_name'),
+        student_age: formData.get('student_age'),
+        guardian_name: formData.get('guardian_name'),
+        phone: formData.get('phone'),
+        email: formData.get('email'),
+        program: formData.get('program'),
+        schedule: formData.get('schedule'),
+        timestamp: new Date().toISOString()
+      };
+
+      saveEnrollment(enrollment);
+
+      statusText.textContent = '¡Pre-Matrícula registrada con éxito! Los datos han sido guardados en el CRM.';
+      statusEl.classList.remove('hidden');
+      form.reset();
+
+      // Reset guardian fields view
+      guardianContainer?.classList.add('hidden');
+      guardianInput?.removeAttribute('required');
+
+      submitBtn.removeAttribute('disabled');
+      submitBtn.textContent = originalText;
+
+      // Auto-open CRM to show register added
+      crmPanel?.classList.remove('hidden');
+
+      // Auto hide success status after 5s
+      setTimeout(() => {
+        statusEl.classList.add('hidden');
+      }, 5000);
     });
   }
+
+  // Initialize
+  updateCRMTable();
 </script>

@@ -1,0 +1,10 @@
+name: Dibujo
+slug: dibujo
+description: Aprende las bases del dibujo artístico, sombreado, proporciones y dibujo al natural. Desarrolla tu destreza visual.
+icon: Brush
+features:
+  - Bocetado y proporción
+  - Luces, sombras y volumen
+  - Perspectiva y anatomía
+  - Técnicas secas (grafito, carbón)
+order: 10

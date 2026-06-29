@@ -1,16 +1,15 @@
 ---
 import Container from '../ui/Container.astro';
-import Button from '../ui/Button.astro';
-import { Play, Pause } from '@lucide/astro';
+import { Play, Pause, ArrowRight } from '@lucide/astro';
 ---
 
-<section id="hero" class="relative pt-[var(--space-4)] pb-[var(--space-3)] lg:pb-[var(--space-4)]">
-  <Container>
+<section id="hero" class="relative pt-[var(--space-4)] pb-[var(--space-4)]">
+  <Container class="relative z-10">
     <!-- Main Hero Card Wrapper -->
-    <div class="flex flex-col lg:flex-row w-full min-h-[600px] lg:min-h-[840px] rounded-3xl overflow-hidden shadow-2xl relative z-10">
+    <div class="flex flex-col lg:flex-row w-full h-auto lg:h-[calc(100vh-140px)] lg:max-h-[720px] lg:min-h-[580px] rounded-[var(--radius-lg)] overflow-hidden border border-white/[0.08] shadow-2xl relative">
       
       <!-- Left Panel: Content -->
-      <div class="w-full lg:w-1/2 bg-[var(--color-primary)] p-[var(--space-5)] sm:p-[var(--space-6)] md:p-[var(--space-9)] flex flex-col justify-center relative overflow-hidden">
+      <div class="w-full lg:w-1/2 bg-[var(--color-primary)] p-[var(--space-6)] sm:p-[var(--space-8)] lg:p-[var(--space-9)] flex flex-col justify-center relative overflow-hidden">
         
         <!-- Background Illustration -->
         <div class="absolute inset-0 pointer-events-none opacity-100">
@@ -22,10 +21,9 @@ import { Play, Pause } from '@lucide/astro';
           />
         </div>
 
-        <div class="relative z-10 pt-8 lg:pt-0">
+        <div class="relative z-10">
           <!-- Inset Image Slider with Logo -->
-          <div class="w-[160px] sm:w-[200px] lg:w-[240px] aspect-[16/10] rounded-[var(--radius-md)] overflow-hidden mb-[var(--space-5)] lg:mb-[var(--space-6)] border-2 border-white/10 animate-hero shadow-lg relative group">
-            
+          <div class="w-[140px] sm:w-[180px] lg:w-[200px] aspect-[16/10] rounded-[var(--radius-md)] overflow-hidden mb-[var(--space-4)] lg:mb-[var(--space-5)] border border-white/10 shadow-lg relative group">
             <!-- Image Slider -->
             <div class="w-full h-full bg-[var(--color-surface-elevated)] relative rounded-[var(--radius-md)] overflow-hidden">
               <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=600&auto=format&fit=crop" alt="Clase 1" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80 mix-blend-luminosity slider-img-1" />
@@ -36,26 +34,22 @@ import { Play, Pause } from '@lucide/astro';
           </div>
 
           <!-- Description -->
-          <p class="text-[var(--font-size-sm)] sm:text-[var(--font-size-md)] text-[#ffffff] font-medium leading-relaxed mb-[var(--space-5)] lg:mb-[var(--space-6)] max-w-[45ch] animate-hero-delay-1" style="color: white !important;">
+          <p class="text-sm sm:text-base text-[var(--color-text-secondary)] font-medium leading-relaxed mb-[var(--space-4)] lg:mb-[var(--space-5)] max-w-[45ch] animate-hero-delay-1">
             Somos una academia musical comprometida con darle a cada estudiante la oportunidad de aprender, crear y brillar.
           </p>
 
           <!-- Large Heading -->
-          <h1 class="text-[clamp(2.25rem,8vw,4.5rem)] font-extrabold font-[var(--font-heading)] tracking-tight leading-[1.05] text-[#ffffff] mb-[var(--space-6)] lg:mb-[var(--space-7)] animate-hero-delay-2" style="color: white !important;">
-            Educación con propósito. Impacto con arte.
+          <h1 class="text-3xl sm:text-4xl xl:text-5xl font-extrabold font-[var(--font-heading)] tracking-tight leading-[1.15] text-[#ffffff] mb-[var(--space-5)] lg:mb-[var(--space-6)] animate-hero-delay-2" style="color: white !important;">
+            Educación con propósito. <br class="hidden sm:inline" /><span class="text-[var(--color-accent)]">Impacto con arte.</span>
           </h1>
 
           <!-- CTAs -->
-          <div class="flex flex-col sm:flex-row flex-wrap gap-[var(--space-3)] sm:gap-[var(--space-4)] animate-hero-delay-2">
-            <a href="#contact" class="inline-flex items-center justify-center w-full sm:w-auto font-[var(--font-heading)] font-semibold rounded-[var(--radius-xl)] text-sm px-6 py-3.5 min-h-[48px] bg-[var(--color-text-primary)] text-[var(--color-text-dark)] hover:bg-gray-200 transition-all active:scale-95 group">
+          <div class="flex flex-col sm:flex-row flex-wrap gap-[var(--space-4)] animate-hero-delay-2">
+            <a href="#contact" class="inline-flex items-center justify-center w-full sm:w-auto font-[var(--font-heading)] font-bold rounded-full text-sm px-6 py-3.5 bg-[var(--color-accent)] text-black hover:bg-[var(--color-accent-hover)] hover:scale-[1.02] transition-all duration-300 active:scale-95 group">
               Inscríbete Ahora
-              <span class="ml-2 opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300 flex items-center">
-                <svg width="20" height="15" viewBox="0 0 20 15" fill="none" class="w-5 h-auto" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19.4879 6.5C19.4919 6.5 19.496 6.5 19.5 6.5V8.5001H19.4582C14.6626 8.5198 11.5 11.9251 11.5 15H9.5C9.5 12.4999 10.8841 10.1065 13.1159 8.5001H0V6.5001H13.1161C10.8842 4.89368 9.5 2.50012 9.5 0H11.5C11.5 3.08118 14.6757 6.4943 19.4879 6.5Z" fill="currentColor"/>
-                </svg>
-              </span>
+              <ArrowRight size={16} class="ml-2 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a href="#programs" class="inline-flex items-center justify-center w-full sm:w-auto font-[var(--font-heading)] font-semibold rounded-[var(--radius-xl)] text-sm px-6 py-3.5 min-h-[48px] bg-[var(--color-accent)] text-[var(--color-primary)] hover:bg-[#d8b170] transition-all active:scale-95">
+            <a href="#programs" class="inline-flex items-center justify-center w-full sm:w-auto font-[var(--font-heading)] font-bold rounded-full text-sm px-6 py-3.5 border border-white/20 text-white bg-white/5 hover:bg-white/10 hover:border-white/40 transition-all duration-300 active:scale-95">
               Nuestros Programas
             </a>
           </div>
@@ -63,22 +57,16 @@ import { Play, Pause } from '@lucide/astro';
       </div>
 
       <!-- Right Panel: Large Image & Overlays -->
-      <div class="w-full lg:w-1/2 relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:h-auto bg-[var(--color-surface-base)]">
-        
+      <div class="w-full lg:w-1/2 relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:h-auto bg-[var(--color-primary)] overflow-hidden">
         <!-- Background Image -->
         <img 
           src="https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?q=80&w=1200&auto=format&fit=crop" 
           alt="Clase de música" 
-          class="absolute inset-0 w-full h-full object-cover animate-hero-delay-1"
+          class="absolute inset-0 w-full h-full object-cover animate-hero-delay-1 hover:scale-105 transition-transform duration-[4000ms]"
         />
 
-        <!-- Top Right Pause Button -->
-        <button class="absolute top-[var(--space-4)] right-[var(--space-4)] w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors z-20 cursor-pointer shadow-sm" aria-label="Pausar video">
-          <Pause size={20} fill="currentColor" />
-        </button>
-
-
-        
+        <!-- Ambient overlay on image to merge left panel -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)]/50 via-transparent to-transparent hidden lg:block"></div>
       </div>
 
     </div>
@@ -99,9 +87,9 @@ import { Play, Pause } from '@lucide/astro';
 
   @keyframes crossfade {
     0% { opacity: 0; }
-    10% { opacity: 1; }
+    8% { opacity: 1; }
     25% { opacity: 1; }
-    35% { opacity: 0; }
+    33% { opacity: 0; }
     100% { opacity: 0; }
   }
 </style>

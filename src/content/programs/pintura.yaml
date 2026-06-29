@@ -1,0 +1,10 @@
+name: Pintura
+slug: pintura
+description: Explora el color, la composición y diversas técnicas como óleo, acrílico y acuarela. Da vida a tu imaginación.
+icon: Palette
+features:
+  - Teoría del color y mezclas
+  - Óleo, acrílico y acuarela
+  - Composición y perspectiva
+  - Desarrollo de estilo propio
+order: 9

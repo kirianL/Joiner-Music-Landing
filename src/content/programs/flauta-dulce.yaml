@@ -1,0 +1,10 @@
+name: Flauta Dulce
+slug: flauta-dulce
+description: Un instrumento ideal tanto para la iniciación musical como para el perfeccionamiento del repertorio barroco e infantil.
+icon: Music
+features:
+  - Digitaciones y postura
+  - Control de aire y articulación
+  - Lectura de partituras
+  - Repertorio clásico y popular
+order: 8

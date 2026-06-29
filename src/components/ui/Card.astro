@@ -7,13 +7,13 @@ interface Props {
 const { class: className = "", interactive = false } = Astro.props;
 
 const hoverStyles = interactive
-  ? "hover:-translate-y-[2px] hover:border-[var(--color-accent)] hover:shadow-[0_0_0_1px_rgba(201,160,92,0.2),0_8px_30px_rgba(0,0,0,0.2)] transition-all duration-[var(--motion-standard)] ease-[var(--ease-standard)]"
+  ? "hover:-translate-y-1 hover:border-[var(--color-border-default)] hover:shadow-[0_12px_32px_rgba(48,18,40,0.06)] transition-all duration-300"
   : "";
 ---
 
 <div
   class:list={[
-    "bg-[var(--color-surface-card)]",
+    "bg-[var(--color-surface-card)]/70 backdrop-blur-md",
     "border border-[var(--color-border-subtle)]",
     "rounded-[var(--radius-md)]",
     "p-[var(--space-6)]",

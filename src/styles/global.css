@@ -9,31 +9,32 @@
 
 @theme {
   /* ─── Brand Palette ─── */
-  --color-primary: #3F2370;
-  --color-primary-hover: #53318D;
-  --color-accent: #C9A05C;
-  --color-accent-hover: #D8B170;
-  --color-secondary: #191E54;
-  --color-background: #191818;
-  --color-foreground: #F8F8FA;
+  --color-primary: #482940;
+  --color-primary-hover: #5d3954;
+  --color-accent: #cc9e4b;
+  --color-accent-hover: #ddaf5c;
+  --color-accent-bright: #f4c70b;
+  --color-secondary: #301228;
+  --color-background: #ffffff;
+  --color-foreground: #301228;
 
   /* ─── Surface System ─── */
-  --color-surface-base: #191818;
-  --color-surface-elevated: #222224;
-  --color-surface-card: #2A2A2E;
-  --color-surface-light: #F8F8FA;
+  --color-surface-base: #F8F8FA;
+  --color-surface-elevated: #ffffff;
+  --color-surface-card: #ffffff;
+  --color-surface-light: #ffffff;
 
   /* ─── Text Colors ─── */
-  --color-text-primary: #F8F8FA;
-  --color-text-secondary: #D6D6DB;
-  --color-text-muted: #9B9BA1;
-  --color-text-dark: #191818;
-  --color-text-accent: #C9A05C;
+  --color-text-primary: #111827;
+  --color-text-secondary: #374151;
+  --color-text-muted: #6b7280;
+  --color-text-dark: #111827;
+  --color-text-accent: #cc9e4b;
 
   /* ─── Border Colors ─── */
-  --color-border-subtle: rgba(248, 248, 250, 0.08);
-  --color-border-default: rgba(248, 248, 250, 0.14);
-  --color-border-strong: rgba(248, 248, 250, 0.24);
+  --color-border-subtle: #e5e7eb;
+  --color-border-default: #d1d5db;
+  --color-border-strong: #9ca3af;
 
   /* ─── Feedback ─── */
   --color-success: #22c55e;
@@ -41,7 +42,7 @@
   --color-whatsapp: #25D366;
 
   /* ─── Typography ─── */
-  --font-heading: 'Sora', system-ui, sans-serif;
+  --font-heading: 'Georgia', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
 
   /* ─── Font Sizes ─── */
@@ -92,15 +93,15 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-surface-light);
-  color: var(--color-text-dark);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-primary);
   line-height: 1.6;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
-  color: var(--color-text-dark);
+  color: var(--color-text-primary);
 }
 
 h1 { line-height: 1.05; }
@@ -130,7 +131,22 @@ p, li, blockquote {
 
 /* ─── Section Spacing ─── */
 .section {
-  padding-block: clamp(80px, 12vw, 160px);
+  padding-block: clamp(48px, 8vw, 96px);
+}
+
+/* ─── Glassmorphism Utilities ─── */
+.glass-panel {
+  background: rgba(48, 41, 64, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-panel-light {
+  background: rgba(248, 248, 250, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(25, 24, 24, 0.08);
 }
 
 /* ─── Texture Layers ─── */
@@ -147,14 +163,14 @@ p, li, blockquote {
 .texture-radial {
   background: radial-gradient(
     ellipse at 50% 0%,
-    rgba(63, 35, 112, 0.12) 0%,
+    rgba(72, 41, 64, 0.04) 0%,
     transparent 70%
   );
 }
 
 /* ─── Selection ─── */
 ::selection {
-  background-color: rgba(201, 160, 92, 0.3);
+  background-color: rgba(204, 158, 75, 0.3);
   color: var(--color-text-primary);
 }
 

@@ -4,13 +4,23 @@ import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import Card from '../ui/Card.astro';
 import ScrollReveal from '../motion/ScrollReveal.astro';
-import { Piano, Guitar, Mic, Drum, Music, Headphones } from '@lucide/astro';
+import { Piano, Guitar, Mic, Drum, Music, Palette, Brush, BookOpen } from '@lucide/astro';
 
 const programs = await getCollection('programs');
 const sorted = programs.sort((a, b) => a.data.order - b.data.order);
 
 const iconMap: Record<string, any> = {
-  Piano, Guitar, Mic, Drum, Music, Headphones,
+  Piano, Guitar, Mic, Drum, Music, Palette, Brush, BookOpen,
+};
+
+// Map each program slug to its official PNG icon from Joiner Music assets
+const pngIconMap: Record<string, string> = {
+  'piano': '/JOINER MUSIC/ICONOS ACADEMIA/PIANO-03.png',
+  'guitarra': '/JOINER MUSIC/ICONOS ACADEMIA/GUITARRA-03.png',
+  'bajo-electrico': '/JOINER MUSIC/ICONOS ACADEMIA/GUITARRA-03.png',
+  'canto': '/JOINER MUSIC/ICONOS ACADEMIA/MICROFONO-03.png',
+  'bateria': '/JOINER MUSIC/ICONOS ACADEMIA/PLATILLO-03.png',
+  'saxofon': '/JOINER MUSIC/ICONOS ACADEMIA/SAX-03.png',
 };
 ---
 
@@ -24,28 +34,38 @@ const iconMap: Record<string, any> = {
         title="Nuestros programas"
         subtitle="Formación musical integral, desde lo clásico hasta lo contemporáneo."
         align="center"
+        theme="dark"
       />
     </ScrollReveal>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[var(--space-5)] mt-[var(--space-9)]">
       {sorted.map((program, i) => {
+        const pngSrc = pngIconMap[program.slug];
         const IconComponent = iconMap[program.data.icon] || Music;
         return (
           <div class="scroll-reveal-card" style={`transition-delay: ${i * 80}ms;`}>
-            <Card interactive>
-              <div class="text-[var(--color-accent)] mb-[var(--space-4)]">
-                <IconComponent size={28} />
+            <Card interactive class="flex flex-col h-full justify-between">
+              <div>
+                <div class="w-14 h-14 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-[var(--space-4)] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] overflow-hidden p-2">
+                  {pngSrc ? (
+                    <img src={pngSrc} alt="" class="w-full h-full object-contain filter invert opacity-90" />
+                  ) : (
+                    <span class="text-[var(--color-accent)]">
+                      <IconComponent size={22} />
+                    </span>
+                  )}
+                </div>
+                <h3 class="text-lg font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                  {program.data.name}
+                </h3>
+                <p class="mt-[var(--space-3)] text-sm text-[var(--color-text-secondary)] leading-relaxed opacity-90">
+                  {program.data.description}
+                </p>
               </div>
-              <h3 class="text-lg font-semibold text-[var(--color-text-primary)] font-[var(--font-heading)]">
-                {program.data.name}
-              </h3>
-              <p class="mt-[var(--space-3)] text-sm text-[var(--color-text-muted)] leading-relaxed">
-                {program.data.description}
-              </p>
-              <ul class="mt-[var(--space-4)] space-y-[var(--space-2)]">
+              <ul class="mt-[var(--space-4)] space-y-[var(--space-2)] pt-[var(--space-2)] border-t border-white/[0.04]">
                 {program.data.features.map((feature: string) => (
-                  <li class="flex items-center gap-[var(--space-2)] text-sm text-[var(--color-text-secondary)]">
-                    <span class="w-1 h-1 rounded-full bg-[var(--color-accent)] shrink-0" aria-hidden="true"></span>
+                  <li class="flex items-center gap-[var(--space-2)] text-xs text-[var(--color-text-muted)]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] shrink-0" aria-hidden="true"></span>
                     {feature}
                   </li>
                 ))}
@@ -55,5 +75,29 @@ const iconMap: Record<string, any> = {
         );
       })}
     </div>
+
+    <!-- Program highlights: Levels, Certifications, Workshops -->
+    <ScrollReveal delay={150}>
+      <div class="mt-[var(--space-8)] p-[var(--space-6)] rounded-[var(--radius-lg)] bg-[var(--color-surface-elevated)]/50 backdrop-blur-md border border-white/[0.08] grid grid-cols-1 md:grid-cols-3 gap-[var(--space-6)] text-center md:text-left shadow-xl">
+        <div>
+          <h4 class="text-[var(--color-accent)] font-bold text-sm uppercase tracking-wider">Niveles de Aprendizaje</h4>
+          <p class="mt-[var(--space-2)] text-sm text-[var(--color-text-secondary)] opacity-90">
+            Programas adaptados para todos: desde nivel Básico para principiantes hasta Intermedio y Avanzado.
+          </p>
+        </div>
+        <div class="border-t md:border-t-0 md:border-l border-white/[0.08] pt-[var(--space-4)] md:pt-0 md:pl-[var(--space-6)]">
+          <h4 class="text-[var(--color-accent)] font-bold text-sm uppercase tracking-wider">Certificaciones</h4>
+          <p class="mt-[var(--space-2)] text-sm text-[var(--color-text-secondary)] opacity-90">
+            Ofrecemos certificaciones oficiales para validar tu progreso y nivel técnico en cada disciplina.
+          </p>
+        </div>
+        <div class="border-t md:border-t-0 md:border-l border-white/[0.08] pt-[var(--space-4)] md:pt-0 md:pl-[var(--space-6)]">
+          <h4 class="text-[var(--color-accent)] font-bold text-sm uppercase tracking-wider">Talleres Exploratorios</h4>
+          <p class="mt-[var(--space-2)] text-sm text-[var(--color-text-secondary)] opacity-90">
+            Talleres y workshops prácticos regulares para experimentar con nuevas técnicas e instrumentos.
+          </p>
+        </div>
+      </div>
+    </ScrollReveal>
   </Container>
 </section>
