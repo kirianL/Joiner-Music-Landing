@@ -22,6 +22,30 @@ const pngIconMap: Record<string, string> = {
   'bateria': '/JOINER MUSIC/ICONOS ACADEMIA/PLATILLO-03.png',
   'saxofon': '/JOINER MUSIC/ICONOS ACADEMIA/SAX-03.png',
 };
+
+// Define program categories
+const categories = [
+  { id: 'todos', label: 'Todos los Programas' },
+  { id: 'instrumentos', label: 'Instrumentos' },
+  { id: 'canto', label: 'Canto y Voz' },
+  { id: 'artes', label: 'Artes Plásticas' },
+  { id: 'idiomas', label: 'Idiomas' }
+];
+
+// Map program slug to category id
+const programCategoryMap: Record<string, string> = {
+  'piano': 'instrumentos',
+  'guitarra': 'instrumentos',
+  'violin': 'instrumentos',
+  'bateria': 'instrumentos',
+  'bajo-electrico': 'instrumentos',
+  'saxofon': 'instrumentos',
+  'flauta-dulce': 'instrumentos',
+  'canto': 'canto',
+  'pintura': 'artes',
+  'dibujo': 'artes',
+  'ingles': 'idiomas'
+};
 ---
 
 <section id="programs" class="section relative bg-[var(--color-surface-base)]">
@@ -32,21 +56,59 @@ const pngIconMap: Record<string, string> = {
     <ScrollReveal>
       <SectionHeading
         title="Nuestros programas"
-        subtitle="Formación musical integral, desde lo clásico hasta lo contemporáneo."
+        subtitle="Formación integral y creativa adaptada a todas las edades y niveles."
         align="center"
         theme="light"
       />
     </ScrollReveal>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[var(--space-5)] mt-[var(--space-9)]">
+    <!-- Modern Category Tabs Switcher (Floating Tabs) -->
+    <ScrollReveal delay={100}>
+      <div class="w-full flex items-center justify-center mb-[var(--space-8)] mt-[var(--space-6)]">
+        <div
+          id="floating-tabs-container"
+          class="relative flex items-center gap-1 p-1 rounded-full bg-gray-100 border border-gray-200/60 w-fit"
+        >
+          <!-- Sliding background indicator -->
+          <div
+            id="floating-tabs-indicator"
+            class="absolute h-[calc(100%-8px)] top-1 bg-white rounded-full shadow-sm border border-gray-200/50 transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] opacity-0"
+          ></div>
+
+          {categories.map((cat, idx) => (
+            <button
+              class:list={[
+                "relative z-10 px-5 py-2 text-xs sm:text-sm font-semibold transition-colors duration-300 cursor-pointer tab-btn",
+                idx === 0 
+                  ? "text-[var(--color-primary)] active-tab" 
+                  : "text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+              ]}
+              data-category={cat.id}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </ScrollReveal>
+
+    <!-- Programs Grid Container -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[var(--space-5)] relative min-h-[400px]">
       {sorted.map((program, i) => {
-        const pngSrc = pngIconMap[program.slug];
+        const programId = program.id.replace('.yaml', '').replace('.yml', '');
+        const pngSrc = pngIconMap[programId];
         const IconComponent = iconMap[program.data.icon] || Music;
+        const category = programCategoryMap[programId] || 'instrumentos';
+        
         return (
-          <div class="scroll-reveal-card" style={`transition-delay: ${i * 80}ms;`}>
-            <Card interactive class="flex flex-col h-full justify-between group">
+          <div 
+            class="program-card-wrapper" 
+            data-program-category={category}
+          >
+            <Card interactive class="flex flex-col h-full justify-between group bg-white border border-gray-200 shadow-sm rounded-[var(--radius-lg)] p-[var(--space-6)]">
               <div>
-                <div class="w-20 h-20 flex items-center justify-center mb-[var(--space-4)] group-hover:scale-110 transition-transform duration-300">
+                <!-- Large Boxless Icon -->
+                <div class="w-20 h-20 flex items-center justify-center mb-[var(--space-4)] group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                   {pngSrc ? (
                     <img src={pngSrc} alt={`Icono ${program.data.name}`} class="w-full h-full object-contain" />
                   ) : (
@@ -55,14 +117,14 @@ const pngIconMap: Record<string, string> = {
                     </span>
                   )}
                 </div>
-                <h3 class="text-lg font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                <h3 class="text-xl font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
                   {program.data.name}
                 </h3>
-                <p class="mt-[var(--space-3)] text-sm text-[var(--color-text-secondary)] leading-relaxed opacity-90">
+                <p class="mt-[var(--space-3)] text-sm text-[var(--color-text-secondary)] leading-relaxed opacity-95">
                   {program.data.description}
                 </p>
               </div>
-              <ul class="mt-[var(--space-4)] space-y-[var(--space-2)] pt-[var(--space-2)] border-t border-white/[0.04]">
+              <ul class="mt-[var(--space-4)] space-y-[var(--space-2)] pt-[var(--space-2)] border-t border-gray-100">
                 {program.data.features.map((feature: string) => (
                   <li class="flex items-center gap-[var(--space-2)] text-xs text-[var(--color-text-muted)]">
                     <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] shrink-0" aria-hidden="true"></span>
@@ -78,20 +140,20 @@ const pngIconMap: Record<string, string> = {
 
     <!-- Program highlights: Levels, Certifications, Workshops -->
     <ScrollReveal delay={150}>
-      <div class="mt-[var(--space-8)] p-[var(--space-6)] rounded-[var(--radius-lg)] bg-[var(--color-surface-elevated)]/50 backdrop-blur-md border border-white/[0.08] grid grid-cols-1 md:grid-cols-3 gap-[var(--space-6)] text-center md:text-left shadow-xl">
+      <div class="mt-[var(--space-9)] p-[var(--space-6)] rounded-[var(--radius-lg)] bg-white border border-gray-200/80 grid grid-cols-1 md:grid-cols-3 gap-[var(--space-6)] text-center md:text-left shadow-sm">
         <div>
           <h4 class="text-[var(--color-accent)] font-bold text-sm uppercase tracking-wider">Niveles de Aprendizaje</h4>
           <p class="mt-[var(--space-2)] text-sm text-[var(--color-text-secondary)] opacity-90">
             Programas adaptados para todos: desde nivel Básico para principiantes hasta Intermedio y Avanzado.
           </p>
         </div>
-        <div class="border-t md:border-t-0 md:border-l border-white/[0.08] pt-[var(--space-4)] md:pt-0 md:pl-[var(--space-6)]">
+        <div class="border-t md:border-t-0 md:border-l border-gray-100 pt-[var(--space-4)] md:pt-0 md:pl-[var(--space-6)]">
           <h4 class="text-[var(--color-accent)] font-bold text-sm uppercase tracking-wider">Certificaciones</h4>
           <p class="mt-[var(--space-2)] text-sm text-[var(--color-text-secondary)] opacity-90">
             Ofrecemos certificaciones oficiales para validar tu progreso y nivel técnico en cada disciplina.
           </p>
         </div>
-        <div class="border-t md:border-t-0 md:border-l border-white/[0.08] pt-[var(--space-4)] md:pt-0 md:pl-[var(--space-6)]">
+        <div class="border-t md:border-t-0 md:border-l border-gray-100 pt-[var(--space-4)] md:pt-0 md:pl-[var(--space-6)]">
           <h4 class="text-[var(--color-accent)] font-bold text-sm uppercase tracking-wider">Talleres Exploratorios</h4>
           <p class="mt-[var(--space-2)] text-sm text-[var(--color-text-secondary)] opacity-90">
             Talleres y workshops prácticos regulares para experimentar con nuevas técnicas e instrumentos.
@@ -101,3 +163,91 @@ const pngIconMap: Record<string, string> = {
     </ScrollReveal>
   </Container>
 </section>
+
+<script>
+  // Dynamic Tab Filtering Script with Sliding Indicator
+  function setupTabs() {
+    const container = document.getElementById('floating-tabs-container');
+    const indicator = document.getElementById('floating-tabs-indicator');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const cards = document.querySelectorAll('.program-card-wrapper');
+
+    if (!container || !indicator) return;
+
+    function updateIndicator(activeBtn: HTMLButtonElement) {
+      if (activeBtn && indicator) {
+        const offsetLeft = activeBtn.offsetLeft;
+        const offsetWidth = activeBtn.offsetWidth;
+        indicator.style.left = `${offsetLeft}px`;
+        indicator.style.width = `${offsetWidth}px`;
+        indicator.style.opacity = '1';
+      }
+    }
+
+    // Set initial position
+    const firstActive = container.querySelector('.active-tab') as HTMLButtonElement;
+    if (firstActive) {
+      setTimeout(() => updateIndicator(firstActive), 150);
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const clickedBtn = e.currentTarget as HTMLButtonElement;
+
+        // Remove active state
+        tabButtons.forEach(b => {
+          b.classList.remove('text-[var(--color-primary)]', 'active-tab');
+          b.classList.add('text-[var(--color-text-secondary)]');
+        });
+
+        // Add active state to current
+        clickedBtn.classList.add('text-[var(--color-primary)]', 'active-tab');
+        clickedBtn.classList.remove('text-[var(--color-text-secondary)]');
+
+        updateIndicator(clickedBtn);
+
+        const filterValue = clickedBtn.getAttribute('data-category');
+
+        cards.forEach((cardEl) => {
+          const cardCategory = cardEl.getAttribute('data-program-category');
+          if (filterValue === 'todos' || cardCategory === filterValue) {
+            cardEl.classList.remove('hidden');
+          } else {
+            cardEl.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const currentActive = container.querySelector('.active-tab') as HTMLButtonElement;
+      if (currentActive) {
+        updateIndicator(currentActive);
+      }
+    });
+  }
+
+  // Run on first load
+  setupTabs();
+
+  // Run on page change/load (support Astro transitions)
+  document.addEventListener('astro:page-load', setupTabs);
+</script>
+
+<style>
+  @keyframes card-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .program-card-wrapper:not(.hidden) {
+    animation: card-fade-in 250ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+</style>

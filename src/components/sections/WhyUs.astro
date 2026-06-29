@@ -7,22 +7,22 @@ import { Users, Clock, Layers, MapPin } from '@lucide/astro';
 
 const differentiators = [
   {
-    icon: Users,
+    icon: '/JOINER MUSIC/ICONOS PRODUCCION/AUDIFONOS-03.png',
     title: "Atención Personalizada",
     description: "Cada alumno es único. Nuestra enseñanza está centrada 100% en el estudiante, adaptando la metodología a tu propio ritmo, intereses y aptitudes.",
   },
   {
-    icon: Clock,
+    icon: '/JOINER MUSIC/ICONOS PRODUCCION/DISCO2-03.png',
     title: "Horas Flexibles",
     description: "Nos adaptamos a tu estilo de vida. Ofrecemos una amplia gama de horarios para que puedas balancear tu formación artística con tus estudios o trabajo.",
   },
   {
-    icon: Layers,
+    icon: '/JOINER MUSIC/ICONOS EVENTOS/TECLADO-03.png',
     title: "Diversidad de Programas",
     description: "Desde clases de múltiples instrumentos musicales (piano, guitarra, batería, bajo, violín, canto, saxofón, flauta) hasta artes plásticas (pintura, dibujo) e inglés.",
   },
   {
-    icon: MapPin,
+    icon: '/JOINER MUSIC/ICONOS EVENTOS/PARLANTE-03.png',
     title: "Modalidad Presencial",
     description: "Creemos en el poder del contacto directo. Nuestras clases presenciales garantizan una retroalimentación inmediata, interacción humana genuina y un ambiente óptimo de estudio.",
   },
@@ -42,19 +42,22 @@ const differentiators = [
     <!-- Modern SaaS Features Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-[var(--space-5)] mt-[var(--space-8)]">
       {differentiators.map((item, i) => {
-        const IconComponent = item.icon;
         return (
           <ScrollReveal delay={i * 80}>
-            <Card interactive class="h-full">
-              <div class="text-[var(--color-accent)] w-12 h-12 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-[var(--space-4)] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-                <IconComponent size={22} />
+            <Card interactive class="h-full group">
+              <div class="flex flex-col sm:flex-row gap-6 items-start">
+                <div class="w-20 h-20 shrink-0 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                  <img src={item.icon} alt={item.title} class="w-full h-full object-contain" />
+                </div>
+                <div class="space-y-[var(--space-2)]">
+                  <h3 class="text-xl font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
+                    {item.title}
+                  </h3>
+                  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed opacity-95">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-              <h3 class="text-lg font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
-                {item.title}
-              </h3>
-              <p class="mt-[var(--space-3)] text-sm text-[var(--color-text-secondary)] leading-relaxed opacity-90">
-                {item.description}
-              </p>
             </Card>
           </ScrollReveal>
         );
